@@ -1,0 +1,75 @@
+﻿@model CartIndexViewModel
+
+@{ 
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h3>Customer Cart</h3>
+
+<table>
+    @* for (int i = 0; i < 5; i++)*@
+
+    @{
+        foreach (var line in Model.Cart.Lines)
+
+        {
+            <tr>
+                <td>
+                    <div class="card mb-4 mr-4" style="max-width: 350px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4 m-3">
+                                @await Component.InvokeAsync("ImageRetriever", new { itemId = line.Item.ItemID })
+                            </div>
+                            <div class="col-md-5 bg-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">@line.Item.ItemName</h5>
+                                    <p class="card-text"><small class="text-dark"><b>@line.Item.UnitPrice.ToString("c")</b></small></p>
+                                    <p class="card-text"><small class="text-success">@line.Quantity</small></p>
+                                    <form asp-action="Remove">
+                                        @*<select name="quantity">
+                                            @for (int i = 1; i <= line.Item.AmtAvailable; i++)
+                                            {
+                                                @if (i == line.Quantity)
+                                                {
+                                                    <option selected="@i" value="@i">@i</option>
+                                                }
+                                                <option value="@i">@i</option>
+
+                                            }
+
+                                        </select>*@
+
+                                        <input type="hidden" name="ItemID" value="@line.Item.ItemID" />
+                                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                                        <input class="btn btn-dark" value="Remove" type="submit" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<div class="align-bottom">
+    <div class="bg-dark ">
+        <div class="text-md-right text-light mr-2">
+            <h3>Total: @Model.Cart.ComputeTotalValue().ToString("c")</h3>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="float-lg-left">
+            <a class="btn btn-outline-primary " asp-controller="Home" asp-action="Index"><span>Continue Shopping</span></a>
+        </div>
+        <div float="right">
+        <a class="btn btn-outline-dark" asp-controller="Order" asp-action="ShippingForm"><span>Checkout</span></a>
+        </div>
+    </div>
+   
+    
+</div>
+

@@ -1,0 +1,38 @@
+﻿@model DGCrafts.Models.Announcement
+@{
+    ViewData["Title"] = "Announcement Editor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Announcements Editor</h2>
+
+<form method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="ID" />
+        <label asp-for="Title"></label>
+        <input asp-for="Title" type="text" />
+    </div>
+
+
+    <div class="form-group">
+        <textarea asp-for="AnnounceDescript" rows="10" cols="50" placeholder="Write Announcement here..."></textarea>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input type="date" asp-for="StartDate" name="StartDate" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDate"></label>
+        <input type="date" asp-for="EndDate" name="EndDate" />
+    </div>
+
+
+
+    <input type="submit" asp-action="MakeAnnouncement" value="Save" class="btn btn-outline-dark">
+    <input type="submit" asp-action="Announcements" value="Cancel" class="btn btn-warning">
+    <input type="submit" asp-route-Id="@Model.ID" asp-action="RemoveAnnouncement" value="Delete" class="btn btn-danger">
+
+</form>

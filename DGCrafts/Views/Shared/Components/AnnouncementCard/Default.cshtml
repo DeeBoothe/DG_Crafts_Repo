@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Announcement>
+
+@{List<Announcement> Today = new List<Announcement>();
+
+
+    foreach (var announce in Model)
+    {
+        if (announce.StartDate == DateTime.Today)
+        {
+            Today.Add(announce);
+        }
+    }
+
+}
+
+
+@{
+
+    foreach (var announce in Today)
+    {
+
+        
+            <div class="card mb-3" style="max-width: 1500px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="~/Images/default-image.jpg" class="card-img" alt="AP1" />
+                    </div>
+                    <div class="col-md-8 bg-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title">@announce.Title</h5>
+                            <p class="card-text">@announce.AnnounceDescript</p>
+                            <p class="card-text"><small class="text-light">Sale ends: @announce.EndDate</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            }
+            int counter = 0;
+            Today.Skip(counter).Take(1);
+            counter++;
+            }
+
+
+
+

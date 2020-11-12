@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Item>
+
+
+@{
+    ViewData["Title"] = "Welcome Shop Owner";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<h3>Welcome Shop Owner</h3>
+
+<div id="announcements" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#announcements" data-slide-to="0" class="active"></li>
+        <li data-target="#announcements" data-slide-to="1"></li>
+        <li data-target="#announcements" data-slide-to="2"></li>
+    </ol>
+  
+    <div class="carousel-inner">
+        @for (int i = 0; i < 3; i++)
+        {
+                if (i == 0)
+                {
+                    <div class="carousel-item active">
+                         @await Component.InvokeAsync("AnnouncementCard")
+                    </div>
+                }
+
+                else
+                {
+                    <div class="carousel-item ">
+                        @await Component.InvokeAsync("AnnouncementCard")
+                    </div>
+                }
+         }
+    </div>
+    
+
+    @*<div class="carousel-item active">
+            <div class="card mb-3" style="max-width: 1500px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="~/Images/default-image.jpg" class="card-img" alt="AP1" />
+                    </div>
+                    <div class="col-md-8 bg-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title">Announcement 1</h5>
+                            <p class="card-text">Words words words for the Announcements</p>
+                            <p class="card-text"><small class="text-light">Sale ends: Sept 20, 2020</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>*@
+
+    <a class="carousel-control-prev" href="#announcements" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#announcements" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+@{  int row = (int)Math.Ceiling((double)(Model.Count() / 3.0));
+    
+    int counter = 0;}
+@for (int i = 0; i < row; i++)
+{
+    <div class="row pb-4">
+        @{
+            var model = Model.Skip(counter).Take(3);
+            foreach(var item in model)
+            {
+                <text>
+                        <div class="col-sm-3 mx-4" >
+                             <div class="card" style="width: 18rem;">
+                                                
+                                 @await Component.InvokeAsync("ImageRetriever", new { itemId = item.ItemID })
+                                 <div class="card-body">
+                                     <p class="card-text">@item.ItemName</p>
+                                     <p class="card-text"><b>@item.UnitPrice.ToString("c")</b></p>
+                                 </div>
+                             </div>
+                        </div>
+                </text>
+            }
+            counter += 3;
+         }
+        
+    </div>
+}
+
+
+
+<div class="row align-content-center">
+    <a asp-action="Announcements" class="btn-lg btn-outline-dark">
+            <span>Edit / Make Annoucements</span>
+    </a>
+
+    <a asp-action="EditStore" class="btn-lg btn-outline-dark">
+            <span>Edit Store</span>
+    </a>
+
+    <a asp-action="Orders" class="btn-lg btn-outline-dark">
+    <span>Orders</span>
+    </a>
+
+</div>
+
+
+
+
+
+

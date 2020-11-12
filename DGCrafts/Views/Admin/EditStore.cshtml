@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Item>
+
+@{
+    ViewData["Title"] = "Edit Store";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+    <h3>Edit Store</h3>
+
+    <table>
+       
+        @foreach ( var item in Model)
+        {
+        <tr>
+          
+            <td>@item.ItemName</td>
+            <td class="text-right">@item.UnitPrice.ToString("c")</td>
+            <td class="text-center">
+                <form  method="post">
+                    <a asp-action="Edit" class="btn btn-sm btn-warning"
+                       asp-route-ItemId="@item.ItemID">
+                        Edit
+                    </a>
+                    <input type="hidden" name="ItemID" value="@item.ItemID" />
+                    <button type="submit"asp-action="Delete" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+
+    </table>
+
+    <a asp-action="Create" class="btn btn-outline-success" >
+       <span>Add New Items</span>
+    </a>
+
+    <a asp-action="Index" class="btn btn-outline-danger">
+        <span>Cancel</span>
+    </a>
+    
+

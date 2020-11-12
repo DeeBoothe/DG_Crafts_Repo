@@ -1,0 +1,14 @@
+﻿body {
+    background-color: orange;
+}
+
+#cart{
+    width: 35px;
+    height: 31px;
+}
+
+.cart{
+    float: right;
+}
+
+

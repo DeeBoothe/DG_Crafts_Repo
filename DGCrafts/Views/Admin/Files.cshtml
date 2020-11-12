@@ -1,0 +1,16 @@
+﻿@model Item
+@{  Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+
+<h4>File Upload for Item</h4>
+
+<form asp-action="Files" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ItemID"/>
+    <div class="form-group">
+
+        <input type="file" id="file1"
+               name="file1"
+               multiple="multiple" />
+
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
